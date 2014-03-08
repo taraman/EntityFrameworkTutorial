@@ -40,7 +40,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		public JsonResult EagerLoading()
 		{
 			var context = new OrdersContext();
-			var products = context.Products.Include("Category").ToList();
+			var products = context.Products.Include(x => x.Category).ToList(); //Immediate Execution
 
 			//check SQL Profiler here
 			var data = products.Select(x => new
@@ -96,7 +96,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		public JsonResult EagerLoadingWithExactIncludes()
 		{
 			var context = new OrdersContext();
-			var products = context.Products.Include("Category").Include("Supplier").ToList(); //Immediate Execution
+			var products = context.Products.Include(x => x.Category).Include(x => x.Supplier).ToList(); //Immediate Execution
 
 			//check SQL Profiler here
 
@@ -125,7 +125,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		public JsonResult EagerLoadingWithMoreIncludes()
 		{
 			var context = new OrdersContext();
-			var products = context.Products.Include("Category").Include("Supplier").ToList(); //Immediate Execution
+			var products = context.Products.Include(x => x.Category).Include(x => x.Supplier).ToList(); //Immediate Execution
 
 			//check SQL Profiler here
 

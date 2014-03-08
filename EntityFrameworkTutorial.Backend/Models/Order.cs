@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace EntityFrameworkTutorial.Data.Models
+namespace EntityFrameworkTutorial.Backend.Models
 {
 
     public partial class Order
@@ -19,7 +19,7 @@ namespace EntityFrameworkTutorial.Data.Models
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<System.DateTime> RequiredDate { get; set; }
         public Nullable<System.DateTime> ShippedDate { get; set; }
-		public Nullable<int> ShipperId { get; set; }
+        public Nullable<int> ShipperId { get; set; }
         public Nullable<decimal> Freight { get; set; }
         public string ShipName { get; set; }
         public string ShipAddress { get; set; }

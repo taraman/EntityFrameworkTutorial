@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace EntityFrameworkTutorial.Data.Models.Mapping
+namespace EntityFrameworkTutorial.Backend.Models.Mapping
 {
     public class OrderMap : EntityTypeConfiguration<Order>
     {
@@ -43,7 +43,7 @@ namespace EntityFrameworkTutorial.Data.Models.Mapping
                 .HasForeignKey(d => d.EmployeeId);
             this.HasOptional(t => t.Shipper)
                 .WithMany(t => t.Orders)
-				.HasForeignKey(d => d.ShipperId);
+                .HasForeignKey(d => d.ShipperId);
 
         }
     }

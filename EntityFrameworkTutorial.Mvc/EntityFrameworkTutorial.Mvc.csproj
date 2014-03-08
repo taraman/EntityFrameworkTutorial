@@ -118,6 +118,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Approach01Controller.cs" />
+    <Compile Include="Controllers\Approach02Controller.cs" />
+    <Compile Include="Controllers\Approach03Controller.cs" />
+    <Compile Include="Controllers\Approach04Controller.cs" />
     <Compile Include="Controllers\EasyEagerLoadingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,6 +148,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-1.11.0.min.map" />
+    <Content Include="Views\Approach02\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -153,6 +158,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkTutorial.Backend\EntityFrameworkTutorial.Backend.csproj">
+      <Project>{00ea9d5d-bb7d-419c-becd-5681c4c08bc9}</Project>
+      <Name>EntityFrameworkTutorial.Backend</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EntityFrameworkTutorial.Data\EntityFrameworkTutorial.Data.csproj">
       <Project>{3a1c3973-d584-4cec-8995-544bf7a7b7cc}</Project>
       <Name>EntityFrameworkTutorial.Data</Name>
@@ -177,7 +186,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>48471</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:13746/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

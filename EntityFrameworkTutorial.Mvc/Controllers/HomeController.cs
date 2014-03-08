@@ -1,36 +1,172 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
+using EntityFrameworkTutorial.Data;
 using EntityFrameworkTutorial.Data.Models;
 
 namespace EntityFrameworkTutorial.Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
-
-		public ActionResult Index()
+        public ActionResult Index()
 		{
 			return View();
 		}
 
-		//public int Index()
-		//{
-		//	return 5;
-		//}
+
+		public string GetConnectionString()
+		{
+			using (var ctx = new OrdersContext())
+			{
+				var strConnection = ctx.Database.Connection.ConnectionString;
+				return strConnection;
+			}
+		}
+
+
+		public JsonResult EagerLoadingAll()
+		{
+			var repo = new OrderRepository();
+			var orders = repo.GetAll(x => x.Shipper, x => x.Customer, x => x.Employee).Take(25).ToList();
+			
+			var data = orders.Select(x => new
+			{
+				x.OrderId,
+				x.OrderDate,
+				Shipper = new
+				{
+					x.Shipper.ShipperId,
+					x.Shipper.CompanyName
+				},
+				Customer = new
+				{
+					x.Customer.CustomerId,
+					x.Customer.CompanyName
+				},
+				Employee = new
+				{
+					x.Employee.EmployeeId,
+					x.Employee.FirstName,
+					x.Employee.LastName
+				}
+
+			}).ToList();
+			
+			return Json(data, JsonRequestBehavior.AllowGet);
+		}
+
+
+		public JsonResult EagerLoadingMany()
+		{
+			var repo = new OrderRepository();
+			var orders = repo.GetMany(x => x.ShipperId == 1, x => x.Shipper, x => x.Customer, x => x.Employee).Take(25).ToList();
+
+			var data = orders.Select(x => new
+			{
+				x.OrderId,
+				x.OrderDate,
+				Customer = new
+				{
+					x.Customer.CustomerId,
+					x.Customer.CompanyName
+				},
+				Employee = new
+				{
+					x.Employee.EmployeeId,
+					x.Employee.FirstName,
+					x.Employee.LastName
+				}
+
+			}).ToList();
+
+			return Json(data, JsonRequestBehavior.AllowGet);
+		}
+
+
+
+		public JsonResult LazyLoading()
+		{
+			var repo = new OrderRepository();
+			var orders = repo.GetAll().Take(25).ToList();
+
+			var data = orders.Select(x => new
+			{
+				x.OrderId,
+				x.OrderDate,
+				Shipper = new
+				{
+					x.Shipper.ShipperId,
+					x.Shipper.CompanyName
+				},
+				Customer = new
+				{
+					x.Customer.CustomerId,
+					x.Customer.CompanyName
+				},
+				Employee = new
+				{
+					x.Employee.EmployeeId,
+					x.Employee.FirstName,
+					x.Employee.LastName
+				}
+
+			}).ToList();
+
+			return Json(data, JsonRequestBehavior.AllowGet);
+		}
+
+
+
+
+		public JsonResult Include1()
+		{
+			var context = new OrdersContext();
+			var products = context.Products.Where(x => x.SupplierId == 1).Include(x=>x.Category).ToList();
+			
+			var data = products.Select(x => new
+			{
+				x.ProductId,
+				x.ProductName,
+				Category = new
+				{
+					x.Category.CategoryId,
+					x.Category.CategoryName
+				}
+			}).ToList();
+
+			return Json(data, JsonRequestBehavior.AllowGet);
+		}
+
+
+		public JsonResult Include2()
+		{
+			var context = new OrdersContext();
+			var products = context.Products.Include(x => x.Category).Where(x => x.SupplierId == 1).ToList();
+
+			var data = products.Select(x => new
+			{
+				x.ProductId,
+				x.ProductName,
+				Category = new
+				{
+					x.Category.CategoryId,
+					x.Category.CategoryName
+				}
+			}).ToList();
+
+			return Json(data, JsonRequestBehavior.AllowGet);
+			
+		}
 
 
 		public JsonResult Test()
 		{
 			var context = new OrdersContext();
 			var categories = context.Categories.Select(x => x.CategoryName).ToList();
-
 			return Json(categories, JsonRequestBehavior.AllowGet);
-
-			
 		}
 
 
@@ -38,33 +174,13 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		{
 			var context = new OrdersContext();
 			var categories = context.Categories;
-
 			return Json(categories, JsonRequestBehavior.AllowGet);
-
-
 		}
 
-		public JsonResult TestLazyLoading()
-		{
-			var repo = new Data.Test.Test1.OrderRepository();
-			var orders = repo.All.ToList();
-
-			
-
-			return Json(orders, JsonRequestBehavior.AllowGet);
+		
 
 
-		}
-
-
-		public JsonResult TestEagerLoading()
-		{
-			var repo = new Data.Test.Test1.OrderRepository();
-			var orders = repo.AllIncluding(x => x.Shipper).ToList();
-			
-
-			return Json(orders, JsonRequestBehavior.AllowGet);
-		}
+		
 
     }
 }

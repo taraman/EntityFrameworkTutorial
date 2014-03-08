@@ -1,24 +1,24 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using EntityFrameworkTutorial.Data.Models.Mapping;
+using EntityFrameworkTutorial.Backend.Models.Mapping;
 
-namespace EntityFrameworkTutorial.Data.Models
+namespace EntityFrameworkTutorial.Backend.Models
 {
     public class OrdersContext : DbContext
     {
-        static OrdersContext()
-        {
-            Database.SetInitializer<OrdersContext>(null);
-        }
+		static OrdersContext()
+		{
+			Database.SetInitializer<OrdersContext>(null);
+		}
 
-	    public OrdersContext()
-		    : base("Name=OrdersContext")
-	    {
-		    //Database.SetInitializer(new MigrateDatabaseToLatestVersion<OrdersContext, SchoolDataLayer.Migrations.Configuration>("OrdersContext"));
-		    //Database.SetInitializer<OrdersContext>(null);
-	    }
+		public OrdersContext()
+			: base("Name=OrdersContext")
+		{
+			//Database.SetInitializer(new MigrateDatabaseToLatestVersion<OrdersContext, SchoolDataLayer.Migrations.Configuration>("OrdersContext"));
+			//Database.SetInitializer<OrdersContext>(null);
+		}
 
-	    //public virtual void Commit() //Used in  Aopproac04
+		//public virtual void Commit() //Used in  Aopproac04
 		//{
 		//	base.SaveChanges();
 		//}
