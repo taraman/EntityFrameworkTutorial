@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using EntityFrameworkTutorial.Data.Models;
-using EntityFrameworkTutorial.Data.RepositoryPatterns.Approach01;
+using EntityFrameworkTutorial.Backend.Models;
+using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach01;
+
 
 namespace EntityFrameworkTutorial.Mvc.Controllers
 {

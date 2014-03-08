@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EntityFrameworkTutorial.Data.Models;
+using EntityFrameworkTutorial.Backend.Models;
 
 using System.Data.Entity;
 

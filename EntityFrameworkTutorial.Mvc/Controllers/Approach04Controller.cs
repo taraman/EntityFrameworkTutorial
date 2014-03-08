@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using EntityFrameworkTutorial.Data.Models;
-using EntityFrameworkTutorial.Data.RepositoryPatterns.Approach04.Data;
-using EntityFrameworkTutorial.Data.RepositoryPatterns.Approach04.Data.EntityRepositories;
-using EntityFrameworkTutorial.Data.RepositoryPatterns.Approach04.Services;
+using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data;
+using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data.EntityRepositories;
+using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Services;
+using EntityFrameworkTutorial.Backend.Models;
 
 namespace EntityFrameworkTutorial.Mvc.Controllers
 {

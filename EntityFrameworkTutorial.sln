@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTutorial.Data", "EntityFrameworkTutorial.Data\EntityFrameworkTutorial.Data.csproj", "{3A1C3973-D584-4CEC-8995-544BF7A7B7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTutorial.Console", "EntityFrameworkTutorial.Console\EntityFrameworkTutorial.Console.csproj", "{21188D4B-B286-4E5E-A4F0-AF85436ECFEB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTutorial.Mvc", "EntityFrameworkTutorial.Mvc\EntityFrameworkTutorial.Mvc.csproj", "{49A09AD7-79A2-4625-9610-0EB7BC76B1BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTutorial.Backend", "EntityFrameworkTutorial.Backend\EntityFrameworkTutorial.Backend.csproj", "{00EA9D5D-BB7D-419C-BECD-5681C4C08BC9}"
@@ -19,10 +17,6 @@ Global
 		{3A1C3973-D584-4CEC-8995-544BF7A7B7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A1C3973-D584-4CEC-8995-544BF7A7B7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A1C3973-D584-4CEC-8995-544BF7A7B7CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21188D4B-B286-4E5E-A4F0-AF85436ECFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21188D4B-B286-4E5E-A4F0-AF85436ECFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21188D4B-B286-4E5E-A4F0-AF85436ECFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21188D4B-B286-4E5E-A4F0-AF85436ECFEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49A09AD7-79A2-4625-9610-0EB7BC76B1BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49A09AD7-79A2-4625-9610-0EB7BC76B1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49A09AD7-79A2-4625-9610-0EB7BC76B1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU

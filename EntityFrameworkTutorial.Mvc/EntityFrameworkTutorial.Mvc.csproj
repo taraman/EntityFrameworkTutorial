@@ -162,10 +162,6 @@
       <Project>{00ea9d5d-bb7d-419c-becd-5681c4c08bc9}</Project>
       <Name>EntityFrameworkTutorial.Backend</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EntityFrameworkTutorial.Data\EntityFrameworkTutorial.Data.csproj">
-      <Project>{3a1c3973-d584-4cec-8995-544bf7a7b7cc}</Project>
-      <Name>EntityFrameworkTutorial.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
