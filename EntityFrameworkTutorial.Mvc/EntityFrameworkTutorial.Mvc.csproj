@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Approach00Controller.cs" />
     <Compile Include="Controllers\Approach01Controller.cs" />
     <Compile Include="Controllers\Approach02Controller.cs" />
     <Compile Include="Controllers\Approach03Controller.cs" />
@@ -137,6 +138,7 @@
     <None Include="Scripts\jquery-1.11.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />
+    <Content Include="Views\Approach00\Index.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

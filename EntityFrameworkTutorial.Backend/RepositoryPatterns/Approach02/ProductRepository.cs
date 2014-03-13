@@ -8,23 +8,18 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach02
 {
 	public class ProductRepository : IProductRepository
 	{
-		OrdersContext _context;
-		
-		DbSet<Product> DbSet
-		{
-			get { return _context.Set<Product>(); }
-		}
+		DbContext Context { get; set; }
+		IDbSet<Product> Dbset {get; set;}
 
 		IQueryable<Product> All
 		{
-			get { return DbSet.AsQueryable(); }
-			//get { return _context.Products; }
+			get { return Dbset.AsQueryable(); }
 		}
 
-		public ProductRepository(OrdersContext context)
+		public ProductRepository(DbContext context)
 		{
-			_context = context;
-			//_dbSet = context.Set<Product>();
+			Context = context;
+			Dbset = context.Set<Product>();
 		}
 
 		IQueryable<Product> Include(IQueryable<Product> query, params Expression<Func<Product, object>>[] includedEntities)
@@ -36,11 +31,6 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach02
 		public IQueryable<Product> GetAll(params Expression<Func<Product, object>>[] includedEntities)
 		{
 			return Include(All, includedEntities);
-		}
-
-		public IQueryable<Product> GetAll2()
-		{
-			return _context.Products;
 		}
 
 		public IQueryable<Product> GetMany(Expression<Func<Product, bool>> predicate, params Expression<Func<Product, object>>[] includedEntities)
@@ -55,31 +45,31 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach02
 
 		public Product Find(int productId)
 		{
-			return _context.Products.Find(productId);
+			return Dbset.Find(productId);
 		}
 
 
 		public void Insert(Product product)
 		{
-			DbSet.Add(product);
+			Dbset.Add(product);
 		}
 
 		public void Update(Product product)
 		{
-			//var x = _context.Entry(product).State;
-			DbSet.Attach(product);
-			//var y = _context.Entry(product).State;
-			_context.Entry(product).State = EntityState.Modified;
-			//var z = _context.Entry(product).State;
+			//var x = Context.Entry(product).State;
+			Dbset.Attach(product);
+			//var y = Context.Entry(product).State;
+			Context.Entry(product).State = EntityState.Modified;
+			//var z = Context.Entry(product).State;
 		}
 
 		public void Delete(Product product)
 		{
-			if (_context.Entry(product).State == EntityState.Detached)
+			if (Context.Entry(product).State == EntityState.Detached)
 			{
-				DbSet.Attach(product);
+				Dbset.Attach(product);
 			}
-			DbSet.Remove(product);
+			Dbset.Remove(product);
 		}
 	}
 

@@ -7,29 +7,29 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach03.Services
 {
 	public class CatalogService : ICatalogService, IDisposable
 	{
-		private IUnitOfWork context;
+		private readonly IUnitOfWork uow;
 
 		public CatalogService(IUnitOfWork dal)
 		{
-			context = dal;
+			uow = dal;
 		}
 
 		public List<Category> GetCategories()
 		{
-			return context.Categories.All().ToList();
+			return uow.Categories.All().ToList();
 		}
 
 		public List<Product> GetProducts()
 		{
-			return context.Products.All().ToList();
+			return uow.Products.All().ToList();
 		}
 
 		public Product CreateProduct(string categoryName, string productName, int price)
 		{
-			var category = new Category() { CategoryName = categoryName };
-			var product = new Product() { ProductName = productName, UnitPrice = price, Category = category };
-			context.Products.Create(product);
-			context.SaveChanges();
+			var category = new Category { CategoryName = categoryName };
+			var product = new Product { ProductName = productName, UnitPrice = price, Category = category };
+			uow.Products.Create(product);
+			uow.SaveChanges();
 			return product;
 		}
 
@@ -37,8 +37,8 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach03.Services
 
 		public void Dispose()
 		{
-			if (context != null)
-				context.Dispose();
+			if (uow != null)
+				uow.Dispose();
 		}
 	}
 }

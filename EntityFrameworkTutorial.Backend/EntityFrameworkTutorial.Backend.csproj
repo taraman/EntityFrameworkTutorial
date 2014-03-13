@@ -70,6 +70,20 @@
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\BaseRepository.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\DbContextFactory.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\EntityRepositories\IProductRepository.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\EntityRepositories\ProductRepository.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\GenericRepository.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\IBaseRepository.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\IDbContextFactory.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\IGenericRepository.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\IUnitOfWork.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\UnitOfWork.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Services\Service.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Services\IService.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Services\IProductService.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Services\ProductService.cs" />
     <Compile Include="RepositoryPatterns\Approach01\BaseRepository.cs" />
     <Compile Include="RepositoryPatterns\Approach01\IBaseRepository.cs" />
     <Compile Include="RepositoryPatterns\Approach01\IUnitOfWork.cs" />
@@ -99,7 +113,9 @@
     <Compile Include="RepositoryPatterns\Approach04\Services\IProductService.cs" />
     <Compile Include="RepositoryPatterns\Approach04\Services\ProductService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="RepositoryPatterns\Approach05\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="CodeTemplates\ReverseEngineerCodeFirst\Context.tt" />

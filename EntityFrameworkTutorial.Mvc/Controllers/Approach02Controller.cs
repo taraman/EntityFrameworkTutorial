@@ -105,8 +105,8 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		{
 			var product1 = new Product
 			{
-				ProductId = 84,
-				ProductName = "asasasasasasa",
+				ProductId = 82,
+				ProductName = "XXXXXX",
 				SupplierId = 1,
 				CategoryId = 1,
 				UnitPrice = 100,

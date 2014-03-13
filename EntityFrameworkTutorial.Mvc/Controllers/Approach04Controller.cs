@@ -12,7 +12,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		private readonly IProductService _productService;
 		
 
-		//we must use IoC to have one instance of dbFactory
+		//we must use IoC to have one instance of dbContextFactory
 		static readonly IDbFactory dbFactory = new DbFactory();
 		public Approach04Controller()
 			: this(new ProductService(new ProductRepository(dbFactory), new UnitOfWork(dbFactory)))
@@ -23,7 +23,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 
 		//This will not work correctly, because we have two different Instances of DataContext
 		//public Approach04Controller()
-		//	: this(new ProductService(new ProductRepository(new DbFactory()), new UnitOfWork(new DbFactory())))
+		//	: this(new ProductService(new ProductRepository(new DbContextFactory()), new UnitOfWork(new DbContextFactory())))
 		//{
 
 		//}

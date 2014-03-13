@@ -2,9 +2,9 @@ using System;
 using System.Data.Entity;
 using EntityFrameworkTutorial.Backend.Models;
 
-namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data
+namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data
 {
-	public class DbFactory : IDbFactory, IDisposable
+	public class DbContextFactory : IDbContextFactory, IDisposable
 	{
 		DbContext _dataContext;
 		public DbContext Get()
@@ -12,7 +12,7 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data
 			return _dataContext ?? (_dataContext = new OrdersContext());
 		}
 
-		~DbFactory()
+		~DbContextFactory()
 		{
 			Dispose(false);
 		}
@@ -36,11 +36,5 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data
 			_isDisposed = true;
 		}
 		#endregion
-
-		//OrdersContext _dataContext;
-		//public OrdersContext Get()
-		//{
-		//	return _dataContext ?? (_dataContext = new OrdersContext());
-		//}
 	}
 }
