@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EntityFrameworkTutorial.Backend.Models;
 using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data;
-using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data.EntityRepositories;
 
 namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services
 {
@@ -168,6 +167,15 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services
 		public void DeleteAndCommit(Product product)
 		{
 			_genericRepository.Delete(product, true);
+		}
+
+		public void DeleteManyProducts(List<Product> products)
+		{
+			foreach (var product in products)
+			{
+				_genericRepository.Delete(product);
+			}
+			_unitOfWork.Commit();
 		}
 		#endregion
 	}

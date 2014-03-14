@@ -91,8 +91,8 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data
 
 		public TEntity Get<TEntity>(params object[] keys) where TEntity : class
 		{
-			var dbset = Context.Set<TEntity>();
-			return dbset.Find(keys);
+			var dbSet = Context.Set<TEntity>();
+			return dbSet.Find(keys);
 		}
 
 		public void Insert<TEntity>(TEntity entity, bool commit = false) where TEntity : class

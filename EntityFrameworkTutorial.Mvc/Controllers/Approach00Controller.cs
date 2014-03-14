@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-
 using System.Web.Mvc;
 using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data;
 using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data.EntityRepositories;
@@ -36,6 +33,8 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		{
 			return View();
 		}
+
+
 
 		#region All Products
 		public JsonResult GetAllProducts()
@@ -210,10 +209,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		}
 		#endregion
 
-
-
-
-
+		
 		#region Get By Key
 		public JsonResult GetProductUsingPredicate()
 		{
@@ -336,6 +332,27 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 			};
 
 			_service.DeleteAndCommit(product);
+		}
+
+		public void DeleteManyProducts()
+		{
+			var products = new List<Product>
+				{
+					new Product
+						{
+							ProductId = 86,
+						},
+					new Product
+						{
+							ProductId = 87,
+						},
+					new Product
+						{
+							ProductId = 88,
+						}
+				};
+			
+			_service.DeleteManyProducts(products);
 		}
 		#endregion
     }

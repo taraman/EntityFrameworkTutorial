@@ -18,7 +18,6 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services
 		}
 
 
-		#region IProductService Members
 		public IEnumerable<Product> GetProductsBySupplierId(int supplierId)
 		{
 			var products = _productRepository.GetProductsBySupplierId(supplierId).ToList();
@@ -33,7 +32,7 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services
 
 		public Product GetProduct(int id)
 		{
-			var product = _productRepository.Find(id);
+			var product = _productRepository.Get(id);
 			return product;
 		}
 
@@ -45,7 +44,7 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services
 
 		public void DeleteProduct(int id)
 		{
-			var product = _productRepository.Find(id);
+			var product = new Product {ProductId = 85};
 			_productRepository.Delete(product);
 			_unitOfWork.Commit();
 		}
@@ -55,6 +54,6 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services
 			_productRepository.Update(product);
 			_unitOfWork.Commit();
 		}
-		#endregion
+		
 	}
 }

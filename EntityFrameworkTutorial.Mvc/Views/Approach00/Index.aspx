@@ -57,7 +57,8 @@
 
 			<b>Delete</b><br/>
 			<a target="_blank" href="/Approach00/Delete">Delete</a><br/>
-			<a target="_blank" href="/Approach00/DeleteAndCommit">Delete And Commit</a><br/><br/><br/>
+			<a target="_blank" href="/Approach00/DeleteAndCommit">Delete And Commit</a><br/>
+			<a target="_blank" href="/Approach00/DeleteManyProducts">Delete Many Products</a><br/><br/><br/>
 		</div>
 	</body>
 </html>

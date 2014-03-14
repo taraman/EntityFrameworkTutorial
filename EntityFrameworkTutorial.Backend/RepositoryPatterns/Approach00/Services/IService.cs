@@ -33,5 +33,6 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services
 
 		void Delete(Product product);
 		void DeleteAndCommit(Product product);
+		void DeleteManyProducts(List<Product> products);
 	}
 }

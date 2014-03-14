@@ -5,71 +5,122 @@ using System.Linq.Expressions;
 
 namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data
 {
-	public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
+	public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 	{
 		protected DbContext Context { get; set; }
-		IDbSet<T> Dbset { get; set; }
-		IQueryable<T> All
-		{
-			get { return Dbset.AsQueryable(); }
-		}
+		readonly IDbSet<TEntity> _dbSet;
 		
 		protected BaseRepository(IUnitOfWork uow)
 		{
 			Context = uow.DataContext;
-			Dbset = Context.Set<T>();
+			_dbSet = Context.Set<TEntity>();
 		}
+
 		
-		static IQueryable<T> Include(IQueryable<T> query, params Expression<Func<T, object>>[] includedEntities)
+		static IQueryable<TEntity> Include(IQueryable<TEntity> query, params Expression<Func<TEntity, object>>[] includedEntities)
 		{
 			includedEntities.ToList().ForEach(entity => query = query.Include(entity));
 			return query;
 		}
 
-		public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includedEntities)
+
+		public IQueryable<TEntity> GetAll(
+			params Expression<Func<TEntity, object>>[] includedEntities)
 		{
-			return Include(All, includedEntities);
+			var query = Include(_dbSet, includedEntities);
+			return query;
 		}
 
-		public IQueryable<T> GetMany(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includedEntities)
+		public IQueryable<TEntity> GetAll(
+			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+			params Expression<Func<TEntity, object>>[] includedEntities
+			)
 		{
-			return GetAll(includedEntities).Where(predicate);
+			var query = GetAll(includedEntities);
+			return orderBy != null ? orderBy(query) : query;
 		}
 
-		public T Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includedEntities)
+		public IQueryable<TEntity> GetAll(
+			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+			ref int? totalRows, int index, int size,
+			params Expression<Func<TEntity, object>>[] includedEntities)
 		{
-			return GetMany(predicate, includedEntities).SingleOrDefault();
+			var query = GetAll(orderBy, includedEntities);
+			totalRows = totalRows ?? query.Count();
+			var skipCount = index * size;
+			query = query.Skip(skipCount).Take(size);
+			return query;
 		}
 
-		public T Find(params object[] keys)
+
+		public IQueryable<TEntity> GetMany(
+			Expression<Func<TEntity, bool>> predicate,
+			params Expression<Func<TEntity, object>>[] includedEntities)
 		{
-			return Dbset.Find(keys);
+			var query = GetAll(includedEntities).Where(predicate);
+			return query;
 		}
 
-		//public virtual T GetById(object id)
-		//{
-		//	return Dbset.Find(id);
-		//}
-		
-		public void Insert(T entity)
+		public IQueryable<TEntity> GetMany(
+			Expression<Func<TEntity, bool>> predicate,
+			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+			params Expression<Func<TEntity, object>>[] includedEntities)
 		{
-			Dbset.Add(entity);
+			var query = GetAll(orderBy, includedEntities).Where(predicate);
+			return query;
 		}
 
-		public void Update(T entity)
+		public IQueryable<TEntity> GetMany(
+			Expression<Func<TEntity, bool>> predicate,
+			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+			ref int? totalRows, int index, int size,
+			params Expression<Func<TEntity, object>>[] includedEntities)
 		{
-			Dbset.Attach(entity);
+			var query = GetAll(orderBy, includedEntities).Where(predicate);
+			totalRows = totalRows ?? query.Count();
+			var skipCount = index * size;
+			query = query.Skip(skipCount).Take(size);
+			return query;
+		}
+
+
+		public TEntity Get(
+			Expression<Func<TEntity, bool>> predicate,
+			params Expression<Func<TEntity, object>>[] includedEntities)
+		{
+			return GetMany(predicate, null, includedEntities).SingleOrDefault();
+		}
+
+		public TEntity Get(params object[] keys)
+		{
+			return _dbSet.Find(keys);
+		}
+
+
+		public void Insert(TEntity entity, bool commit = false)
+		{
+			_dbSet.Add(entity);
+			if (commit)
+				Context.SaveChanges();
+		}
+
+		public void Update(TEntity entity, bool commit = false)
+		{
+			_dbSet.Attach(entity);
 			Context.Entry(entity).State = EntityState.Modified;
+			if (commit)
+				Context.SaveChanges();
 		}
 
-		public void Delete(T entity)
+		public void Delete(TEntity entity, bool commit = false)
 		{
 			if (Context.Entry(entity).State == EntityState.Detached)
 			{
-				Dbset.Attach(entity);
+				_dbSet.Attach(entity);
 			}
-			Dbset.Remove(entity);
+			_dbSet.Remove(entity);
+			if (commit)
+				Context.SaveChanges();
 		}
-
 	}
 }
