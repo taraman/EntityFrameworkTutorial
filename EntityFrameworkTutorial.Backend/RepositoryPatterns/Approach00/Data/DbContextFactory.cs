@@ -4,7 +4,7 @@ using EntityFrameworkTutorial.Backend.Models;
 
 namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data
 {
-	public class DbContextFactory : IDbContextFactory, IDisposable
+	public class DbContextFactory : IContextFactory, IDisposable
 	{
 		DbContext _dataContext;
 		public DbContext Get()

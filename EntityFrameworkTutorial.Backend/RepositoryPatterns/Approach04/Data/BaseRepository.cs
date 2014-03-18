@@ -13,7 +13,7 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data
 		private OrdersContext _dataContext;
 		//protected OrdersContext DataContext
 		//{
-		//	get { return _dataContext ?? (_dataContext = DbContextFactory.Get()); }
+		//	get { return _dataContext ?? (_dataContext = ContextFactory.Get()); }
 		//}
 
 		protected OrdersContext DataContext
