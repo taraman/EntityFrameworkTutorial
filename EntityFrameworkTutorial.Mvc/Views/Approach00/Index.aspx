@@ -59,6 +59,11 @@
 			<a target="_blank" href="/Approach00/Delete">Delete</a><br/>
 			<a target="_blank" href="/Approach00/DeleteAndCommit">Delete And Commit</a><br/>
 			<a target="_blank" href="/Approach00/DeleteManyProducts">Delete Many Products</a><br/><br/><br/>
+			
+			
+			<b>Using Entity Repository</b><br/>
+			<a target="_blank" href="/Approach00/GetProductsBySupplierId">Get Products By Supplier Id</a><br/><br/><br/>
+		
 		</div>
 	</body>
 </html>

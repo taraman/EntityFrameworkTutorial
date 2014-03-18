@@ -35,32 +35,61 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		}
 
 
+	    static dynamic MapCategory(Product product)
+		{
+			return (product.Category != null)
+					   ? new
+					   {
+						   product.Category.CategoryId,
+						   product.Category.CategoryName
+					   }
+					   : null;
+		}
+
+	    static dynamic MapProduct(Product product)
+		{
+			return new
+			{
+				product.ProductId,
+				product.ProductName,
+				Category = MapCategory(product)
+			};
+		}
+
+	    static dynamic MapProducts(IEnumerable<Product> products)
+		{
+			return products.Select(x => MapProduct(x)).ToList();
+		}
+
+		
 
 		#region All Products
 		public JsonResult GetAllProducts()
 		{
 			var products = _service.GetAllProducts();
-			var data = products.Select(x => new
-				{
-					x.ProductId,
-					x.ProductName,
-				}).ToList();
+			var data = MapProducts(products);
+			//var data = products.Select(x => new
+			//	{
+			//		x.ProductId,
+			//		x.ProductName,
+			//	}).ToList();
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
 		
 		public JsonResult GetAllProductsWithCategories()
 		{
 			var products = _service.GetAllProductsWithCategories();
-			var data = products.Select(x => new
-			{
-				x.ProductId,
-				x.ProductName,
-				Category = new
-				{
-					x.Category.CategoryId,
-					x.Category.CategoryName
-				}
-			}).ToList();
+			var data = MapProducts(products);
+			//var data = products.Select(x => new
+			//{
+			//	x.ProductId,
+			//	x.ProductName,
+			//	Category = new
+			//	{
+			//		x.Category.CategoryId,
+			//		x.Category.CategoryName
+			//	}
+			//}).ToList();
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
 		
@@ -209,7 +238,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		}
 		#endregion
 
-		
+
 		#region Get By Key
 		public JsonResult GetProductUsingPredicate()
 		{
@@ -355,5 +384,21 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 			_service.DeleteManyProducts(products);
 		}
 		#endregion
+
+
+
+		public JsonResult GetProductsBySupplierId()
+		{
+			var products = _productService.GetProductsBySupplierId(1);
+			var data = products.Select(x => new
+			{
+				x.ProductId,
+				x.ProductName,
+			}).ToList();
+			return Json(data, JsonRequestBehavior.AllowGet);
+		}
+		
+
+
     }
 }
