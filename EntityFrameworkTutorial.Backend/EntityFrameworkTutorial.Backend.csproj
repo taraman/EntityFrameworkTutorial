@@ -76,7 +76,7 @@
     <Compile Include="RepositoryPatterns\Approach00\Data\EntityRepositories\ProductRepository.cs" />
     <Compile Include="RepositoryPatterns\Approach00\Data\GenericRepository.cs" />
     <Compile Include="RepositoryPatterns\Approach00\Data\IBaseRepository.cs" />
-    <Compile Include="RepositoryPatterns\Approach00\Data\IDbContextFactory.cs" />
+    <Compile Include="RepositoryPatterns\Approach00\Data\IContextFactory.cs" />
     <Compile Include="RepositoryPatterns\Approach00\Data\IGenericRepository.cs" />
     <Compile Include="RepositoryPatterns\Approach00\Data\IUnitOfWork.cs" />
     <Compile Include="RepositoryPatterns\Approach00\Data\UnitOfWork.cs" />

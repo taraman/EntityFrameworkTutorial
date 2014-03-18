@@ -23,7 +23,7 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data
 		}
 
 
-		//private readonly IDbContextFactory _dbFactory;
+		//private readonly IContextFactory _dbFactory;
 
 		//private OrdersContext _dataContext;
 		//protected OrdersContext DataContext
@@ -31,7 +31,7 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach04.Data
 		//	get { return _dataContext ?? (_dataContext = _dbFactory.Get()); }
 		//}
 
-		//public UnitOfWork(IDbContextFactory dbFactory)
+		//public UnitOfWork(IContextFactory dbFactory)
 		//{
 		//	_dbFactory = dbFactory;
 		//}

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data;
-using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data.EntityRepositories;
 using EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Services;
 using EntityFrameworkTutorial.Backend.Models;
 
@@ -12,22 +10,12 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
     {
 		private readonly IProductService _productService;
 		private readonly IService _service;
-
-		static readonly IUnitOfWork UoW = new UnitOfWork(new DbContextFactory());
 		
-		public Approach00Controller()
-			: this(new ProductService(new ProductRepository(UoW), UoW), new Service(new GenericRepository(UoW),UoW))
-		{
-
-		}
-
-
 		public Approach00Controller(IProductService productService, IService service)
 		{
 			_productService = productService;
 			_service = service;
 		}
-
 
 		public ActionResult Index()
 		{
