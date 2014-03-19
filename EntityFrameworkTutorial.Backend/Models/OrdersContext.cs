@@ -14,7 +14,8 @@ namespace EntityFrameworkTutorial.Backend.Models
 		public OrdersContext()
 			: base("Name=OrdersContext")
 		{
-			//this.Configuration.LazyLoadingEnabled = false; //Stop lazy loading
+			//Configuration.LazyLoadingEnabled = false; //Stop lazy loading
+			//Configuration.ProxyCreationEnabled = false; //Stop creating proxy for database entities
 
 			//Database.SetInitializer(new MigrateDatabaseToLatestVersion<OrdersContext, SchoolDataLayer.Migrations.Configuration>("OrdersContext"));
 			//Database.SetInitializer<OrdersContext>(null);
@@ -37,7 +38,9 @@ namespace EntityFrameworkTutorial.Backend.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new CategoryMap());
+			//Configuration.LazyLoadingEnabled = false;
+
+			modelBuilder.Configurations.Add(new CategoryMap());
             modelBuilder.Configurations.Add(new CustomerMap());
             modelBuilder.Configurations.Add(new EmployeeMap());
             modelBuilder.Configurations.Add(new OrderDetailMap());

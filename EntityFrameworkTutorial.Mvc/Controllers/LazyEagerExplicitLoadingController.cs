@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using EntityFrameworkTutorial.Backend.Models;
-
 using System.Data.Entity;
+
+using EntityFrameworkTutorial.Backend.Models;
+using EntityFrameworkTutorial.Mvc.Models;
 
 namespace EntityFrameworkTutorial.Mvc.Controllers
 {
@@ -13,6 +14,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		{
 			return View();
 		}
+
 
 
 		#region Lazy Loading vs. Eager Loading (Immediate Execution)
@@ -94,8 +96,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
-
-
+		
 		public JsonResult EagerLoadingWithExactIncludes()
 		{
 			var context = new OrdersContext();
@@ -123,8 +124,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 			//check SQL Profiler here
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
-
-
+		
 		public JsonResult EagerLoadingWithMoreIncludes()
 		{
 			var context = new OrdersContext();
@@ -182,7 +182,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 				{
 					ProductId = x.ProductId,
 					ProductName = x.ProductName,
-					Category = new CategoryDC()
+					Category = new CategoryDC
 					{
 						CategoryId = x.Category.CategoryId,
 						CategoryName = x.Category.CategoryName
@@ -479,32 +479,6 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		}
 		#endregion
 
-	}
-
-
-
-	//Data Contract Classes (To avoid "Circular References" issue)
-	public class CategoryDC
-	{
-		public int CategoryId { get; set; }
-		public string CategoryName { get; set; }
-		public IEnumerable<ProductDC> Products { get; set; }
-	}
-
-	public class SupplierDC
-	{
-		public int SupplierId { get; set; }
-		public string CompanyName { get; set; }
-		public IEnumerable<ProductDC> Products { get; set; }
-
-	}
-
-	public class ProductDC
-	{
-		public int ProductId { get; set; }
-		public string ProductName { get; set; }
-		public CategoryDC Category { get; set; }
-		public SupplierDC Supplier { get; set; }
 	}
 
 }

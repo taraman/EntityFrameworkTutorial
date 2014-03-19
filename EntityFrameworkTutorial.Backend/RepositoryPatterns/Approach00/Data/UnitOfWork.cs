@@ -15,6 +15,9 @@ namespace EntityFrameworkTutorial.Backend.RepositoryPatterns.Approach00.Data
 		public UnitOfWork(IContextFactory contextFactory)
 		{
 			_contextFactory = contextFactory;
+
+			DataContext.Configuration.LazyLoadingEnabled = false; //Stop lazy loading
+			DataContext.Configuration.ProxyCreationEnabled = false; //Stop creating proxy for database entities
 		}
 
 		public void Commit()

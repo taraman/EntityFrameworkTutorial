@@ -54,13 +54,8 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		#region All Products
 		public JsonResult GetAllProducts()
 		{
-			var products = _service.GetAllProducts();
+			var products = _service.GetAllProducts().ToList();
 			var data = MapProducts(products);
-			//var data = products.Select(x => new
-			//	{
-			//		x.ProductId,
-			//		x.ProductName,
-			//	}).ToList();
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
 		
