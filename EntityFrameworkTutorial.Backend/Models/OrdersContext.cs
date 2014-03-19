@@ -14,6 +14,8 @@ namespace EntityFrameworkTutorial.Backend.Models
 		public OrdersContext()
 			: base("Name=OrdersContext")
 		{
+			//this.Configuration.LazyLoadingEnabled = false; //Stop lazy loading
+
 			//Database.SetInitializer(new MigrateDatabaseToLatestVersion<OrdersContext, SchoolDataLayer.Migrations.Configuration>("OrdersContext"));
 			//Database.SetInitializer<OrdersContext>(null);
 		}

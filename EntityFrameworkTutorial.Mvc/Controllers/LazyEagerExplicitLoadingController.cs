@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using EntityFrameworkTutorial.Backend.Models;
 
@@ -9,8 +7,13 @@ using System.Data.Entity;
 
 namespace EntityFrameworkTutorial.Mvc.Controllers
 {
-	public class EasyEagerLoadingController : Controller
+	public class LazyEagerExplicitLoadingController : Controller
 	{
+		public ActionResult Index()
+		{
+			return View();
+		}
+
 
 		#region Lazy Loading vs. Eager Loading (Immediate Execution)
 		//Lazy Loading (Immediate Execution)
@@ -21,16 +24,16 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 
 			//check SQL Profiler here
 			var data = products.Select(x => new
+			{
+				x.ProductId,
+				x.ProductName,
+				Category = new
 				{
-					x.ProductId,
-					x.ProductName,
-					Category = new
-						{
-							x.Category.CategoryId,
-							x.Category.CategoryName
-						}
+					x.Category.CategoryId,
+					x.Category.CategoryName
+				}
 
-				}).ToList();
+			}).ToList();
 
 			//check SQL Profiler here
 			return Json(data, JsonRequestBehavior.AllowGet);
@@ -67,7 +70,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		public JsonResult EagerLoadingWithLessIncludes()
 		{
 			var context = new OrdersContext();
-			var products = context.Products.Include(x=>x.Category).ToList();
+			var products = context.Products.Include(x => x.Category).ToList();
 
 			//check SQL Profiler here
 			var data = products.Select(x => new
@@ -91,7 +94,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
-		
+
 
 		public JsonResult EagerLoadingWithExactIncludes()
 		{
@@ -162,32 +165,32 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 			if (getSuppliers)
 			{
 				productDCs = products.Select(x => new ProductDC
+				{
+					ProductId = x.ProductId,
+					ProductName = x.ProductName,
+					Supplier = new SupplierDC
 					{
-						ProductId = x.ProductId,
-						ProductName = x.ProductName,
-						Supplier = new SupplierDC
-							{
-								SupplierId = x.Supplier.SupplierId,
-								CompanyName = x.Supplier.CompanyName
-							}
+						SupplierId = x.Supplier.SupplierId,
+						CompanyName = x.Supplier.CompanyName
+					}
 
-					}).ToList();
+				}).ToList();
 			}
 			else
 			{
 				productDCs = products.Select(x => new ProductDC
+				{
+					ProductId = x.ProductId,
+					ProductName = x.ProductName,
+					Category = new CategoryDC()
 					{
-						ProductId = x.ProductId,
-						ProductName = x.ProductName,
-						Category = new CategoryDC()
-							{
-								CategoryId = x.Category.CategoryId,
-								CategoryName = x.Category.CategoryName
-							}
+						CategoryId = x.Category.CategoryId,
+						CategoryName = x.Category.CategoryName
+					}
 
-					}).ToList();
+				}).ToList();
 			}
-			
+
 			//check SQL Profiler here
 			return Json(productDCs, JsonRequestBehavior.AllowGet);
 		}
@@ -205,24 +208,24 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 
 			//check SQL Profiler here
 			var productDcs = new List<ProductDC>();
-			
+
 			foreach (var x in products)
 			{
 				var product = new ProductDC
+				{
+					ProductId = x.ProductId,
+					ProductName = x.ProductName,
+					Category = new CategoryDC
 					{
-						ProductId = x.ProductId,
-						ProductName = x.ProductName,
-						Category = new CategoryDC
-						{
-							CategoryId = x.Category.CategoryId,
-							CategoryName = x.Category.CategoryName
-						}
-					};
+						CategoryId = x.Category.CategoryId,
+						CategoryName = x.Category.CategoryName
+					}
+				};
 
 				productDcs.Add(product);
 				//check SQL Profiler here
 			}
-			
+
 			return Json(productDcs, JsonRequestBehavior.AllowGet);
 		}
 
@@ -264,15 +267,15 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 
 			//check SQL Profiler here
 			var productDcs = products.Select(x => new ProductDC
+			{
+				ProductId = x.ProductId,
+				ProductName = x.ProductName,
+				Category = new CategoryDC
 				{
-					ProductId = x.ProductId, 
-					ProductName = x.ProductName, 
-					Category = new CategoryDC
-						{
-							CategoryId = x.Category.CategoryId, 
-							CategoryName = x.Category.CategoryName
-						}
-				}).ToList();
+					CategoryId = x.Category.CategoryId,
+					CategoryName = x.Category.CategoryName
+				}
+			}).ToList();
 
 			return Json(productDcs, JsonRequestBehavior.AllowGet);
 		}
@@ -280,7 +283,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 
 
 
-		
+
 		#region Queries that return a singleton value are executed immediately
 		//Lazy Loading: return a singleton value
 		public JsonResult LazyLoadingSingletonValue()
@@ -311,8 +314,8 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		public JsonResult EagerLoadingSingletonValue()
 		{
 			var context = new OrdersContext();
-			
-			var supplier = context.Suppliers.Include(s=>s.Products).First();
+
+			var supplier = context.Suppliers.Include(s => s.Products).First();
 
 			//check SQL Profiler here
 			var supplierDC = new SupplierDC
@@ -340,7 +343,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 			var context = new OrdersContext();
 
 			var supplier1 = context.Suppliers.Find(1);
-			
+
 			var supplier = context.Suppliers.Find(1);
 
 			var supplier2 = context.Suppliers.Find(2);
@@ -351,7 +354,7 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 				supplier.SupplierId,
 				supplier.CompanyName
 			};
-			
+
 			return Json(supplierDC, JsonRequestBehavior.AllowGet);
 		}
 
@@ -359,28 +362,28 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		public JsonResult UsingFirstOrDefault()
 		{
 			var context = new OrdersContext();
-			
+
 			var supplierX = context.Suppliers.FirstOrDefault(x => x.SupplierId == 1);
-			
+
 			var supplierY = context.Suppliers.FirstOrDefault(x => x.SupplierId == 1);
-			
+
 			var supplierXDc = new
-				{
-					supplierX.SupplierId,
-					supplierX.CompanyName
-				};
+			{
+				supplierX.SupplierId,
+				supplierX.CompanyName
+			};
 
 			var supplierYDc = new
-				{
-					supplierY.SupplierId,
-					supplierY.CompanyName
-				};
-			
+			{
+				supplierY.SupplierId,
+				supplierY.CompanyName
+			};
+
 			return Json(new
-				{
-					supplierXDc,
-					supplierYDc
-				}, JsonRequestBehavior.AllowGet);
+			{
+				supplierXDc,
+				supplierYDc
+			}, JsonRequestBehavior.AllowGet);
 		}
 
 
@@ -395,40 +398,89 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 			var supplierX2 = context.Suppliers.Find(1);
 
 			var supplierXDC = new SupplierDC
+			{
+				SupplierId = supplierX2.SupplierId,
+				CompanyName = supplierX2.CompanyName,
+				Products = supplierX2.Products.Select(p => new ProductDC
 				{
-					SupplierId = supplierX2.SupplierId,
-					CompanyName = supplierX2.CompanyName,
-					Products = supplierX2.Products.Select(p => new ProductDC
-						{
-							ProductId = p.ProductId,
-							ProductName = p.ProductName
-						})
-				};
+					ProductId = p.ProductId,
+					ProductName = p.ProductName
+				})
+			};
 
 
 			//Using FirstOrDefault()
-			var supplierY = context.Suppliers.Include(x=>x.Products).FirstOrDefault(x => x.SupplierId == 1);
+			var supplierY = context.Suppliers.Include(x => x.Products).FirstOrDefault(x => x.SupplierId == 1);
 
 			var supplierYDC = new SupplierDC
+			{
+				SupplierId = supplierY.SupplierId,
+				CompanyName = supplierY.CompanyName,
+				Products = supplierX2.Products.Select(p => new ProductDC
 				{
-					SupplierId = supplierY.SupplierId,
-					CompanyName = supplierY.CompanyName,
-					Products = supplierX2.Products.Select(p => new ProductDC
-						{
-							ProductId = p.ProductId,
-							ProductName = p.ProductName
-						})
-				};
-			
+					ProductId = p.ProductId,
+					ProductName = p.ProductName
+				})
+			};
+
 			return Json(new
+			{
+				supplierXDC,
+				supplierYDC
+			}, JsonRequestBehavior.AllowGet);
+		}
+		#endregion
+
+
+
+
+		#region Explicitly Loading
+		public JsonResult ExplicitlyLoadingForSingleEntity()
+		{
+			var context = new OrdersContext();
+
+			var product = context.Products.Find(1);
+			context.Entry(product).Reference(p => p.Category).Load();
+
+			var productDc = new ProductDC
+			{
+				ProductId = product.ProductId,
+				ProductName = product.ProductName,
+				Category = new CategoryDC()
 				{
-					supplierXDC,
-					supplierYDC
-				}, JsonRequestBehavior.AllowGet);
+					CategoryId = product.Category.CategoryId,
+					CategoryName = product.Category.CategoryName
+				}
+			};
+
+			return Json(productDc, JsonRequestBehavior.AllowGet);
+		}
+
+
+		public JsonResult ExplicitlyLoadingForManyEntities()
+		{
+			var context = new OrdersContext();
+
+			var category = context.Categories.Find(1);
+			context.Entry(category).Collection(c => c.Products).Load();
+
+			var categoryDC = new CategoryDC
+			{
+				CategoryId = category.CategoryId,
+				CategoryName = category.CategoryName,
+				Products = category.Products.Select(p => new ProductDC
+				{
+					ProductId = p.ProductId,
+					ProductName = p.ProductName
+				})
+			};
+
+			return Json(categoryDC, JsonRequestBehavior.AllowGet);
 		}
 		#endregion
 
 	}
+
 
 
 	//Data Contract Classes (To avoid "Circular References" issue)

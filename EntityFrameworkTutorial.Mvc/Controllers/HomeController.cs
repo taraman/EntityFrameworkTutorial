@@ -180,12 +180,12 @@ namespace EntityFrameworkTutorial.Mvc.Controllers
 		}
 
 
-		public JsonResult Test2()
-		{
-			var context = new OrdersContext();
-			var categories = context.Categories;
-			return Json(categories, JsonRequestBehavior.AllowGet);
-		}
+		//public JsonResult Test2()
+		//{
+		//	var context = new OrdersContext();
+		//	var categories = context.Categories;
+		//	return Json(categories, JsonRequestBehavior.AllowGet);
+		//}
 
 
 

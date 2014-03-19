@@ -130,8 +130,8 @@
     <Compile Include="Controllers\Approach02Controller.cs" />
     <Compile Include="Controllers\Approach03Controller.cs" />
     <Compile Include="Controllers\Approach04Controller.cs" />
-    <Compile Include="Controllers\EasyEagerLoadingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LazyEagerExplicitLoadingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -146,6 +146,7 @@
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />
     <Content Include="Views\Approach00\Index.aspx" />
+    <Content Include="Views\LazyEagerExplicitLoading\Index.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
